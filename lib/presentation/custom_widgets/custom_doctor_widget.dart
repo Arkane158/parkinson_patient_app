@@ -22,7 +22,7 @@ class CustomDoctorWidget extends StatelessWidget {
               height: size.height * .016,
             ),
             CircleAvatar(
-              radius: size.width * 0.15,
+              radius: size.width * 0.12,
               backgroundColor: Theme.of(context).primaryColor,
               backgroundImage: const AssetImage('assets/images/doctor_ex.png'),
             ),
@@ -31,12 +31,12 @@ class CustomDoctorWidget extends StatelessWidget {
               'Dr. Ahmed Ali',
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
             ),
-            const SizedBox(height: 5.0),
+            // SizedBox(height: size.height * .05),
             const Text(
               'Physiatrist',
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
             ),
-            const SizedBox(height: 5.0),
+            // SizedBox(height: size.height * .05),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -53,6 +53,7 @@ class CustomDoctorWidget extends StatelessWidget {
                 ),
               ],
             ),
+            //
           ],
         ),
       ),

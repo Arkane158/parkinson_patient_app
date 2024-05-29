@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:parkinson_app/presentation/custom_widgets/custom_doctor_widget.dart';
 import 'package:parkinson_app/presentation/custom_widgets/search_text_from.dart';
-import 'package:parkinson_app/presentation/home/more_doctor_screen.dart';
 import 'package:parkinson_app/presentation/services/disease_information/disease_information.dart';
+import 'package:parkinson_app/presentation/view_doctor/view_doctor_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -212,29 +212,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                   padding: EdgeInsets.symmetric(
                                       vertical: size.height * .01,
                                       horizontal: size.width * .03),
-                                  child: Row(
+                                  child: const Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      const Text(
-                                        'Popular Doctors ',
+                                      Text(
+                                        'Doctors ',
                                         style: TextStyle(
                                             fontSize: 18,
                                             fontWeight: FontWeight.w600),
                                       ),
-                                      InkWell(
-                                        onTap: () => Navigator.pushNamed(
-                                            context,
-                                            MoreDoctorScreen.screenName),
-                                        child: Text(
-                                          'See More ',
-                                          style: TextStyle(
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.w600,
-                                              color: Theme.of(context)
-                                                  .primaryColor),
-                                        ),
-                                      )
                                     ],
                                   ),
                                 ),
@@ -251,8 +238,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                       return Padding(
                                         padding: EdgeInsets.symmetric(
                                             horizontal: size.width * .02),
-                                        child: customdoctorWidgets[
-                                            index], // Display item from the list
+                                        child: InkWell(
+                                          onTap: () {
+                                            Navigator.pushNamed(context,
+                                                ViewDoctorScreen.screenName);
+                                          },
+                                          child: customdoctorWidgets[index],
+                                        ), // Display item from the list
                                       );
                                     },
                                   ),

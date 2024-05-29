@@ -15,6 +15,7 @@ import 'package:parkinson_app/presentation/services/services_screen.dart';
 import 'package:parkinson_app/presentation/signup/signup_screen.dart';
 import 'package:parkinson_app/presentation/theme_data.dart';
 import 'package:parkinson_app/presentation/verify%20screen/verify_screen.dart';
+import 'package:parkinson_app/presentation/view_doctor/view_doctor_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -30,10 +31,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: MyTheme.lightTheme,
       routes: {
-        LoginScreen.screenName: (context) => LoginScreen(),
-        SignUpScreen.screenName: (context) => SignUpScreen(),
-        ForgotPassword.screenName: (context) => ForgotPassword(),
-        VerifyScreen.screenName: (context) => VerifyScreen(),
+        ViewDoctorScreen.screenName: (context) => const ViewDoctorScreen(),
+        LoginScreen.screenName: (context) => const LoginScreen(),
+        SignUpScreen.screenName: (context) => const SignUpScreen(),
+        ForgotPassword.screenName: (context) => const ForgotPassword(),
+        VerifyScreen.screenName: (context) => const VerifyScreen(),
         ChangePasswordScreen.screenName: (context) => ChangePasswordScreen(),
         AppBarAndBottomNav.screenName: (context) => const AppBarAndBottomNav(),
         HomeScreen.screenName: (context) => const HomeScreen(),
