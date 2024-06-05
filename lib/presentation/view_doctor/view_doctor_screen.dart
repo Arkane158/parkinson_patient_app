@@ -52,10 +52,20 @@ class _ViewDoctorScreenState extends State<ViewDoctorScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      doctor.name,
-                      style: const TextStyle(
-                          fontSize: 22, fontWeight: FontWeight.w600),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          doctor.name,
+                          style: const TextStyle(
+                              fontSize: 22, fontWeight: FontWeight.w600),
+                        ),
+                        Icon(
+                          Icons.chat_rounded,
+                          color: Theme.of(context).primaryColor,
+                          size: 40,
+                        )
+                      ],
                     ),
                     SizedBox(height: size.height * .02),
                     const Text(

@@ -12,7 +12,6 @@ class ServicesScreen extends StatefulWidget {
 }
 
 class _ServicesScreenState extends State<ServicesScreen> {
-
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -54,38 +53,49 @@ class _ServicesScreenState extends State<ServicesScreen> {
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          right: size.width * .11,
-                          top: size.height * .03,
-                          left: size.width * .11),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Image(
-                          image: const AssetImage(
-                            'assets/images/voice_assistant.png',
-                          ),
-                          width: size.width * .3,
-                          color: Colors.grey,
+                    Row(
+                      children: [
+                        Column(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  right: size.width * .11,
+                                  top: size.height * .03,
+                                  left: size.width * .11),
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Image(
+                                  image: const AssetImage(
+                                    'assets/images/voice_assistant.png',
+                                  ),
+                                  width: size.width * .3,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: size.height * .01,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: size.width * .03),
+                              child: const Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  "Voice Assistant (soon)",
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.grey),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: size.height * .01,
-                    ),
-                    Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: size.width * .03),
-                      child: const Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          "Voice Assistant (soon)",
-                          style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.grey),
-                        ),
-                      ),
+                        const Column(
+                          children: [],
+                        )
+                      ],
                     )
                   ],
                 ),

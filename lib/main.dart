@@ -1,4 +1,6 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:parkinson_app/firebase_options.dart';
 import 'package:parkinson_app/presentation/bottom_app_bar/app_bar_bottom_nav_bar.dart';
 import 'package:parkinson_app/presentation/change_password/change_password_screen.dart';
 import 'package:parkinson_app/presentation/doctors/doctors_screen.dart';
@@ -19,7 +21,11 @@ import 'package:parkinson_app/presentation/theme_data.dart';
 import 'package:parkinson_app/presentation/verify%20screen/verify_screen.dart';
 import 'package:parkinson_app/presentation/view_doctor/view_doctor_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -54,7 +60,7 @@ class MyApp extends StatelessWidget {
         PrivacyPolicyScreen.screenName: (context) =>
             const PrivacyPolicyScreen(),
         HelpScreen.screenName: (context) => const HelpScreen(),
-        AboutUsScreen.screenName: (context) => const AboutUsScreen()
+        AboutUsScreen.screenName: (context) => const AboutUsScreen(),
       },
       initialRoute: LoginScreen.screenName,
     );

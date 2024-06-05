@@ -20,13 +20,12 @@ class LoginViewModel extends Cubit<LoginState> {
         await UserPref.saveUserPhone(phone: response.data!.phone);
         await UserPref.saveUserName(name: response.data!.username);
         await UserPref.saveUserImg(img: response.img);
-
+        await UserPref.saveUserId(id: response.data!.id);
         await UserPref.saveUserGender(gender: response.data!.gender);
 
         await UserPref.saveUserVerified(verified: response.data!.verified);
 
         await UserPref.saveUserVersion(version: response.data!.version);
-        // var id = await UserPref.getUserId();
         // var email1 = await UserPref.getUserEmail();
         // var phone = await UserPref.getUserPhone();
         // var image = await UserPref.getUserImg();
