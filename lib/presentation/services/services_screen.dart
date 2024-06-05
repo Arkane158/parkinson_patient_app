@@ -93,7 +93,9 @@ class _ServicesScreenState extends State<ServicesScreen> {
                           ],
                         ),
                         const Column(
-                          children: [],
+                          children: [
+                            Text('chats')
+                          ],
                         )
                       ],
                     )
