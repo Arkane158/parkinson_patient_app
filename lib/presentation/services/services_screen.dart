@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:parkinson_app/presentation/custom_widgets/search_text_from.dart';
 import 'package:parkinson_app/presentation/services/disease_information/disease_information.dart';
 import 'package:parkinson_app/presentation/services/disease_result/diseae_result.dart';
 import 'package:parkinson_app/presentation/services/services_widgets.dart';
@@ -13,7 +12,6 @@ class ServicesScreen extends StatefulWidget {
 }
 
 class _ServicesScreenState extends State<ServicesScreen> {
-  final TextEditingController _searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +26,6 @@ class _ServicesScreenState extends State<ServicesScreen> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    SearchTextField(
-                        hintText: 'Search Services',
-                        controller: _searchController),
                     SizedBox(
                       height: size.height * .05,
                     ),

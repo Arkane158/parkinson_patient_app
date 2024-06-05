@@ -68,12 +68,22 @@ class CustomDoctorWidget extends StatelessWidget {
             Text(
               doctor.name,
               textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+              style: const TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+              ),
+              overflow: TextOverflow.ellipsis, // Handle long names
+              maxLines: 1, // Limit to one line
             ),
             const Text(
               'doctor.speciality',
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+              ),
+              overflow: TextOverflow.ellipsis, // Handle long specialities
+              maxLines: 1, // Limit to one line
             ),
             SizedBox(
               height: spacing,

@@ -6,7 +6,9 @@ import 'package:parkinson_app/presentation/forgot_password/forgot_password.dart'
 import 'package:parkinson_app/presentation/home/home_screen.dart';
 import 'package:parkinson_app/presentation/home/more_doctor_screen.dart';
 import 'package:parkinson_app/presentation/login/login_screen.dart';
+import 'package:parkinson_app/presentation/profile/about_us/about_us_screen.dart';
 import 'package:parkinson_app/presentation/profile/account/edit_account.dart';
+import 'package:parkinson_app/presentation/profile/help/help_screen.dart';
 import 'package:parkinson_app/presentation/profile/privacy%20policy/privacy_policy_screen.dart';
 import 'package:parkinson_app/presentation/profile/profile_screen.dart';
 import 'package:parkinson_app/presentation/services/disease_information/disease_information.dart';
@@ -36,7 +38,8 @@ class MyApp extends StatelessWidget {
         SignUpScreen.screenName: (context) => const SignUpScreen(),
         ForgotPassword.screenName: (context) => const ForgotPassword(),
         VerifyScreen.screenName: (context) => const VerifyScreen(),
-        ChangePasswordScreen.screenName: (context) => ChangePasswordScreen(),
+        ChangePasswordScreen.screenName: (context) =>
+            const ChangePasswordScreen(),
         AppBarAndBottomNav.screenName: (context) => const AppBarAndBottomNav(),
         HomeScreen.screenName: (context) => const HomeScreen(),
         ServicesScreen.screenName: (context) => const ServicesScreen(),
@@ -50,6 +53,8 @@ class MyApp extends StatelessWidget {
         EditAccount.screenName: (context) => const EditAccount(),
         PrivacyPolicyScreen.screenName: (context) =>
             const PrivacyPolicyScreen(),
+        HelpScreen.screenName: (context) => const HelpScreen(),
+        AboutUsScreen.screenName: (context) => const AboutUsScreen()
       },
       initialRoute: LoginScreen.screenName,
     );

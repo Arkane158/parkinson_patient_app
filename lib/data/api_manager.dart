@@ -41,39 +41,43 @@ class ApiManager {
     required File image,
   }) async {
     try {
-      var uri = Uri.parse('https://parkinson-9ek4.onrender.com/patient$signUp');
+      // Construct the query string
+      String queryString = Uri(
+        queryParameters: {
+          'password': password,
+          'email': email,
+          'name': name,
+          'gender': gender,
+          'phone': phone,
+        },
+      ).query;
+
+      // Construct the URI with the query string
+      var uri = Uri.parse(
+          'https://parkinson-9ek4.onrender.com/patient$signUp?$queryString');
+
       var request = http.MultipartRequest('POST', uri);
 
       var stream = http.ByteStream(image.openRead());
       var length = await image.length();
-
       var multipartFile = http.MultipartFile(
         'image',
         stream,
         length,
+
         filename: 'profile_image.jpg',
         contentType: MediaType('image', 'jpeg'), // Specify content type here
       );
       request.files.add(multipartFile);
 
-      request.fields['password'] = password;
-      print(password);
-      request.fields['email'] = email;
-      request.fields['name'] = name;
-      request.fields['gender'] = gender;
-      request.fields['phone'] = phone;
-
       var response = await request.send();
-      print(response);
 
       if (response.statusCode == 200) {
         var responseData = await response.stream.bytesToString();
-        print(responseData);
         var jsonResponse = jsonDecode(responseData);
 
         return SignUpResponse.fromJson(jsonResponse);
-      }
-      if (response.statusCode == 404) {
+      } else if (response.statusCode == 404) {
         var responseData = await response.stream.bytesToString();
         throw Exception(responseData);
       } else {
@@ -87,16 +91,13 @@ class ApiManager {
   static Future<LoginResponse> login(String email, String password) async {
     var url = Uri.parse('https://parkinson-9ek4.onrender.com/patient$loginUrl');
     var requestBody = LoginRequest(email: email, password: password);
-    print(password);
 
     var response = await http.post(url, body: requestBody.toJson());
-    print(response.body);
     return LoginResponse.fromJson(jsonDecode(response.body));
   }
 
   static Future<EmailVerificationResponse> emailVerification(
       String email, String code) async {
-    print('helllo');
     var url = Uri.parse(
         'https://parkinson-9ek4.onrender.com/patient/emailverification');
     var requestBody = EmailVerificationRequest(code: code, email: email);
@@ -115,7 +116,6 @@ class ApiManager {
 
   static Future<VerifyCodeResponse> verifyCode(
       String email, String code) async {
-    print('hakj');
     var url =
         Uri.parse('https://parkinson-9ek4.onrender.com/patient$verifyCodeUrl');
     var requestBody = VerifyCodeRequest(email: email, code: code);
@@ -159,8 +159,10 @@ class ApiManager {
   }
 
   static Future<DoctorResponse> doctorList() async {
-    var url = Uri.https(baseUrl, doctorListUrl);
+    var url =
+        Uri.parse('https://parkinson-9ek4.onrender.com/patient$doctorListUrl');
     var response = await http.post(url);
+    // print(response.body);
     return DoctorResponse.fromJson(jsonDecode(response.body));
   }
 

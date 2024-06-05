@@ -7,7 +7,6 @@ class DoctorData {
   final List<String> workdays;
   final String startTime;
   final String endTime;
-  final String step;
 
   DoctorData({
     required this.img,
@@ -18,20 +17,18 @@ class DoctorData {
     required this.workdays,
     required this.startTime,
     required this.endTime,
-    required this.step,
   });
 
   factory DoctorData.fromJson(Map<String, dynamic> json) {
     return DoctorData(
-      img: json['img'],
-      userId: json['userId'],
-      phone: json['phone'],
-      name: json['Name'],
-      address: json['address'],
+      img: json['img'] ?? 'null',
+      userId: json['userId'] ?? 'null',
+      phone: json['phone'] ?? 'null',
+      name: json['Name'] ?? 'null',
+      address: json['address'] ?? 'null',
       workdays: List<String>.from(json['workdays']),
-      startTime: json['startTime'],
-      endTime: json['endTime'],
-      step: json['step'],
+      startTime: json['startTime'] ?? 'null',
+      endTime: json['endTime'] ?? 'null',
     );
   }
 
@@ -45,7 +42,6 @@ class DoctorData {
       'workdays': workdays,
       'startTime': startTime,
       'endTime': endTime,
-      'step': step,
     };
   }
 }

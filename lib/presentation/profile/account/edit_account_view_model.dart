@@ -1,11 +1,12 @@
 
+import 'dart:io';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class EditAccountViewModel extends Cubit<EditAccountState> {
   EditAccountViewModel() : super(LoadingState());
 
-  void editProfileImage(
-  ) async {
+  void editProfileImage(File file ) async {
     // try {
     //   emit(LoadingState());
 
@@ -34,11 +35,7 @@ class EditAccountViewModel extends Cubit<EditAccountState> {
   void editProfile({
     required String phone,
     required String name,
-    required String address,
-    required String workdays,
-    required String startTime,
-    required String endTime,
-    required String step,
+   
   }) async {
     // try {
     //   // emit(LoadingState());

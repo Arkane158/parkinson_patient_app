@@ -1,21 +1,49 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:parkinson_app/pref/user_save_shared_prefrence.dart';
+import 'package:parkinson_app/presentation/login/login_screen.dart';
+import 'package:parkinson_app/presentation/profile/about_us/about_us_screen.dart';
 import 'package:parkinson_app/presentation/profile/account/edit_account.dart';
+import 'package:parkinson_app/presentation/profile/help/help_screen.dart';
 import 'package:parkinson_app/presentation/profile/privacy%20policy/privacy_policy_screen.dart';
 import 'package:parkinson_app/presentation/profile/setting_widgets.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
   static const String screenName = "profileScreen";
 
   @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  String? name;
+  String? img;
+  String? email;
+
+  @override
+  void initState() {
+    super.initState();
+    loadUserData();
+  }
+
+  Future<void> loadUserData() async {
+    name = await UserPref.getUserName();
+    img = await UserPref.getUserImg();
+    email = await UserPref.getUserEmail();
+    setState(() {});
+  }
+
+  @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return Scaffold(
       body: Column(
         children: [
           Stack(
             children: [
               Container(
-                height: MediaQuery.of(context).size.height * .33,
+                height: size.height * .33,
                 decoration: BoxDecoration(
                   color: Theme.of(context).primaryColor,
                   borderRadius: const BorderRadius.only(
@@ -27,13 +55,12 @@ class ProfileScreen extends StatelessWidget {
               Expanded(
                 child: Padding(
                   padding: EdgeInsets.symmetric(
-                    horizontal: MediaQuery.of(context).size.width * .05,
-                    vertical: MediaQuery.of(context).size.height * .07,
+                    horizontal: size.width * .05,
+                    vertical: size.height * .07,
                   ),
                   child: Container(
-                    height: MediaQuery.of(context).size.height *
-                        .65, // Adjusted height
-                    width: MediaQuery.of(context).size.width * 2,
+                    height: size.height * .65,
+                    width: size.width * 2,
                     decoration: const BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.all(Radius.circular(15)),
@@ -43,13 +70,13 @@ class ProfileScreen extends StatelessWidget {
                         children: [
                           Padding(
                             padding: EdgeInsets.only(
-                              top: MediaQuery.of(context).size.height * .06,
+                              top: size.height * .08,
                             ),
-                            child: const Text('Ali Mohamed '),
+                            child: Text(name ?? ''),
                           ),
-                          const Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text('AliMohamed123@gmail.com'),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(email ?? ''),
                           ),
                           SettingWidgets(
                             leading: const Icon(
@@ -97,7 +124,10 @@ class ProfileScreen extends StatelessWidget {
                               color: Color(0xff41545E),
                             ),
                             title: 'About us',
-                            voidCallback: () {},
+                            voidCallback: () {
+                              Navigator.pushNamed(
+                                  context, AboutUsScreen.screenName);
+                            },
                           ),
                           SettingWidgets(
                             leading: const Icon(
@@ -111,7 +141,10 @@ class ProfileScreen extends StatelessWidget {
                               color: Color(0xff41545E),
                             ),
                             title: 'Help & Support',
-                            voidCallback: () {},
+                            voidCallback: () {
+                              Navigator.pushNamed(
+                                  context, HelpScreen.screenName);
+                            },
                           ),
                           SettingWidgets(
                             leading: const Icon(
@@ -125,7 +158,11 @@ class ProfileScreen extends StatelessWidget {
                               color: Colors.transparent,
                             ),
                             title: 'Logout',
-                            voidCallback: () {},
+                            voidCallback: () {
+                              UserPref.clearUserData();
+                              Navigator.pushReplacementNamed(
+                                  context, LoginScreen.screenName);
+                            },
                           )
                         ],
                       ),
@@ -133,11 +170,59 @@ class ProfileScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              const Center(
-                child: CircleAvatar(
-                  radius: 45,
-                  backgroundImage: AssetImage('assets/images/doctor.png'),
-                ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: img != null && img!.isNotEmpty
+                    ? Center(
+                        child: GestureDetector(
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (_) => Dialog(
+                                child: CachedNetworkImage(
+                                  imageUrl: img!,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            );
+                          },
+                          child: CachedNetworkImage(
+                            imageUrl: img!,
+                            imageBuilder: (context, imageProvider) =>
+                                CircleAvatar(
+                              radius: size.width * 0.14,
+                              backgroundColor: Colors.transparent,
+                              backgroundImage: imageProvider,
+                            ),
+                            placeholder: (context, url) => CircleAvatar(
+                              radius: size.width * 0.14,
+                              backgroundColor: Colors.grey,
+                              child: const Icon(
+                                Icons.person,
+                                color: Colors.white,
+                              ),
+                            ),
+                            errorWidget: (context, url, error) => CircleAvatar(
+                              radius: size.width * 0.14,
+                              backgroundColor: Colors.grey,
+                              child: const Icon(
+                                Icons.error,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
+                    : Center(
+                        child: CircleAvatar(
+                          radius: size.width * 0.14,
+                          backgroundColor: Colors.grey,
+                          child: const Icon(
+                            Icons.person,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
               ),
             ],
           )

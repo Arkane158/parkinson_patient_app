@@ -1,9 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:parkinson_app/pref/user_save_shared_prefrence.dart';
 import 'package:parkinson_app/presentation/profile/account/edit_account_section.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
-class EditAccount extends StatelessWidget {
-  const EditAccount({super.key});
+class EditAccount extends StatefulWidget {
+  const EditAccount({Key? key}) : super(key: key);
   static const String screenName = "EditAccount";
+
+  @override
+  State<EditAccount> createState() => _EditAccountState();
+}
+
+class _EditAccountState extends State<EditAccount> {
+  String? name;
+  String? img;
+  String? email;
+  String? phone;
+
+  @override
+  void initState() {
+    super.initState();
+    loadUserData();
+  }
+
+  Future<void> loadUserData() async {
+    name = await UserPref.getUserName();
+    img = await UserPref.getUserImg();
+    email = await UserPref.getUserEmail();
+    phone = await UserPref.getUserPhone();
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,10 +45,31 @@ class EditAccount extends StatelessWidget {
           Padding(
             padding:
                 EdgeInsets.only(top: MediaQuery.of(context).size.height * .02),
-            child: const Center(
-              child: CircleAvatar(
-                radius: 80,
-                backgroundImage: AssetImage('assets/images/d.jpg'),
+            child: Center(
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  CircleAvatar(
+                    radius: 80,
+                    backgroundImage: img != null
+                        ? CachedNetworkImageProvider(img!)
+                        : const AssetImage('assets/images/unkown.png')
+                            as ImageProvider,
+                  ),
+                  Positioned(
+                    top: 0,
+                    right: 0,
+                    child: IconButton(
+                      icon: Icon(
+                        Icons.edit,
+                        color: Theme.of(context).primaryColor,
+                      ),
+                      onPressed: () {
+                        // Add your edit image functionality here
+                      },
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -33,29 +80,24 @@ class EditAccount extends StatelessWidget {
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
             ),
           ),
-          const Expanded(
+          Expanded(
             child: SingleChildScrollView(
               child: Column(
                 children: [
                   EditAccountSection(
                     tittle: 'User Name',
-                    icon: Icon(Icons.person_outline),
-                    content: 'Ali mohamed',
+                    icon: const Icon(Icons.person_outline),
+                    content: name ?? '',
                   ),
                   EditAccountSection(
                     tittle: 'Email',
-                    icon: Icon(Icons.person_outline),
-                    content: 'AliMohamed123@gmail.com',
+                    icon: const Icon(Icons.email_outlined),
+                    content: email ?? '',
                   ),
                   EditAccountSection(
                     tittle: 'Phone ',
-                    icon: Icon(Icons.person_outline),
-                    content: '01124568875',
-                  ),
-                  EditAccountSection(
-                    tittle: 'Working Days ',
-                    icon: Icon(Icons.person_outline),
-                    content: 'Sat : thu at 10:00am to 06:00pm ',
+                    icon: const Icon(Icons.phone_outlined),
+                    content: phone ?? '',
                   ),
                 ],
               ),

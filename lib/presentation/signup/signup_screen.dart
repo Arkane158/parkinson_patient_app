@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:parkinson_app/presentation/bottom_app_bar/app_bar_bottom_nav_bar.dart';
 import 'package:parkinson_app/presentation/custom_widgets/auth_widget.dart';
 import 'package:parkinson_app/presentation/custom_widgets/custom_elevated_buttom.dart';
 import 'package:parkinson_app/presentation/custom_widgets/custom_text_form_field.dart';
@@ -129,6 +128,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             },
                             title: 'Phone',
                             controller: _phoneController,
+                            type: TextInputType.phone,
                             hint: 'Phone',
                             icon: const Icon(Icons.phone_outlined),
                           ),

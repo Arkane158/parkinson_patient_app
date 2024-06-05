@@ -17,14 +17,13 @@ class SignUpViewModel extends Cubit<SignUpState> {
     try {
       emit(LoadingState());
       var response = await ApiManager.signup(
-          password: password,
-          email: email,
+          password: password.trim(),
+          email: email.trim(),
           name: name,
           gender: gender,
           phone: phone,
           image: image);
       emit(HideLoadingState());
-      print(response.status);
 
       if (response.status == 200) {
         emit(SuccessState("Succsse"));

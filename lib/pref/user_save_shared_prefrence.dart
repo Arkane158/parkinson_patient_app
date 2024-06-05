@@ -6,50 +6,33 @@ class UserPref {
   static const String _keyPhone = 'phone';
   static const String _keyName = 'name';
   static const String _keyImg = 'img';
-  static const String _keyAddress = 'address';
-  static const String _keyWorkdays = 'workdays';
-  static const String _keyStartTime = 'startTime';
-  static const String _keyEndTime = 'endTime';
-  static const String _keyStep = 'step';
-  static const String _editUserProfileId = 'editProfileId';
-  static const String _profileId = '_id';
+  static const String _keyGender = 'gender';
+  static const String _keyVerified = 'verified';
+  static const String _keyVersion = 'version';
 
+  // Save user data
   static Future<void> saveUserData({
+    required String id,
     required String email,
     required String phone,
     required String name,
-    required String address,
-    required String workdays,
-    required String startTime,
-    required String endTime,
-    required String step,
+    required String img,
+    required String gender,
+    required bool verified,
+    required int version,
   }) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_keyId, id);
     await prefs.setString(_keyEmail, email);
     await prefs.setString(_keyPhone, phone);
     await prefs.setString(_keyName, name);
-    await prefs.setString(_keyAddress, address);
-    await prefs.setString(_keyWorkdays, workdays);
-    await prefs.setString(_keyStartTime, startTime);
-    await prefs.setString(_keyEndTime, endTime);
-    await prefs.setString(_keyStep, step);
-  }
-
-  static Future<void> saveUserImg({required String img}) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString(_keyImg, img);
+    await prefs.setString(_keyGender, gender);
+    await prefs.setBool(_keyVerified, verified);
+    await prefs.setInt(_keyVersion, version);
   }
 
-  static Future<String?> getUserImg() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString(_keyImg);
-  }
-
-  static Future<String?> getUserName() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString(_keyName);
-  }
-
+  // Save individual attributes
   static Future<void> saveUserId({required String id}) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString(_keyId, id);
@@ -60,46 +43,45 @@ class UserPref {
     await prefs.setString(_keyEmail, email);
   }
 
-  static Future<String?> getUserEmail() async {
+  static Future<void> saveUserPhone({required String phone}) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString(_keyEmail);
+    await prefs.setString(_keyPhone, phone);
   }
 
-  static Future<void> saveEditProfileId(
-      {required String editUserProfileId}) async {
+  static Future<void> saveUserName({required String name}) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString(_editUserProfileId, editUserProfileId);
+    await prefs.setString(_keyName, name);
   }
 
-  static Future<String?> getUserEditProfileId() async {
+  static Future<void> saveUserImg({required String img}) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString(_editUserProfileId);
+    await prefs.setString(_keyImg, img);
   }
 
+  static Future<void> saveUserGender({required String gender}) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_keyGender, gender);
+  }
+
+  static Future<void> saveUserVerified({required bool verified}) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_keyVerified, verified);
+  }
+
+  static Future<void> saveUserVersion({required int version}) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setInt(_keyVersion, version);
+  }
+
+  // Get individual attributes
   static Future<String?> getUserId() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString(_keyId);
   }
 
-  static Future<void> clearUserData() async {
+  static Future<String?> getUserEmail() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.remove(_keyId);
-    await prefs.remove(_keyEmail);
-    await prefs.remove(_keyPhone);
-    await prefs.remove(_keyName);
-    await prefs.remove(_keyImg);
-    await prefs.remove(_keyAddress);
-    await prefs.remove(_keyWorkdays);
-    await prefs.remove(_keyStartTime);
-    await prefs.remove(_keyEndTime);
-    await prefs.remove(_keyStep);
-  }
-
-  // New methods for phone, workdays, start time, and end time
-
-  static Future<void> saveUserPhone({required String phone}) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString(_keyPhone, phone);
+    return prefs.getString(_keyEmail);
   }
 
   static Future<String?> getUserPhone() async {
@@ -107,67 +89,41 @@ class UserPref {
     return prefs.getString(_keyPhone);
   }
 
-  static Future<void> saveUserWorkdays({required String workdays}) async {
+  static Future<String?> getUserName() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString(_keyWorkdays, workdays);
+    return prefs.getString(_keyName);
   }
 
-  static Future<String?> getUserWorkdays() async {
+  static Future<String?> getUserImg() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString(_keyWorkdays);
+    return prefs.getString(_keyImg);
   }
 
-  static Future<void> saveUserStartTime({required String startTime}) async {
+  static Future<String?> getUserGender() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString(_keyStartTime, startTime);
+    return prefs.getString(_keyGender);
   }
 
-  static Future<String?> getUserStartTime() async {
+  static Future<bool?> getUserVerified() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString(_keyStartTime);
+    return prefs.getBool(_keyVerified);
   }
 
-  static Future<void> saveUserEndTime({required String endTime}) async {
+  static Future<int?> getUserVersion() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString(_keyEndTime, endTime);
+    return prefs.getInt(_keyVersion);
   }
 
-  static Future<String?> getUserEndTime() async {
+  // Clear all user data
+  static Future<void> clearUserData() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString(_keyEndTime);
+    await prefs.remove(_keyId);
+    await prefs.remove(_keyEmail);
+    await prefs.remove(_keyPhone);
+    await prefs.remove(_keyName);
+    await prefs.remove(_keyImg);
+    await prefs.remove(_keyGender);
+    await prefs.remove(_keyVerified);
+    await prefs.remove(_keyVersion);
   }
-
-  static Future<void> saveUserAddress({required String address}) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString(_keyAddress, address);
-  }
-
-  static Future<String?> getUserAddress() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString(_keyAddress);
-  }
-
-  static Future<void> saveUserStep({required String step}) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString(_keyStep, step);
-  }
-
-  static Future<String?> getUserStep() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString(_keyStep);
-  }
-  static Future<void> saveUserName({required String name}) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString(_keyName, name);
-  }
-  static Future<String?> getProfileId() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString(_profileId);
-  }
-  static Future<void> saveProfileId({required String profileId}) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString(_profileId, profileId);
-  }
-
-
 }

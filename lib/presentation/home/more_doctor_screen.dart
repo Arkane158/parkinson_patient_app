@@ -8,12 +8,7 @@ class MoreDoctorScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<CustomDoctorWidget> customDoctorWidgets = [
-      const CustomDoctorWidget(),
-      const CustomDoctorWidget(),
-      const CustomDoctorWidget(),
-      const CustomDoctorWidget(),
-      const CustomDoctorWidget(),
-      const CustomDoctorWidget(),
+
     ];
 
     var size = MediaQuery.of(context).size;

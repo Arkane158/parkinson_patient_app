@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:parkinson_app/data/api_manager.dart';
+import 'package:parkinson_app/pref/user_save_shared_prefrence.dart';
 
 class LoginViewModel extends Cubit<LoginState> {
   LoginViewModel() : super(LoadingState());
@@ -13,6 +14,25 @@ class LoginViewModel extends Cubit<LoginState> {
 
       if (response.status == 200) {
         emit(HideLoadingState());
+        await UserPref.saveUserEmail(email: email);
+
+        await UserPref.saveUserGender(gender: response.data!.gender);
+        await UserPref.saveUserPhone(phone: response.data!.phone);
+        await UserPref.saveUserName(name: response.data!.username);
+        await UserPref.saveUserImg(img: response.img);
+
+        await UserPref.saveUserGender(gender: response.data!.gender);
+
+        await UserPref.saveUserVerified(verified: response.data!.verified);
+
+        await UserPref.saveUserVersion(version: response.data!.version);
+        // var id = await UserPref.getUserId();
+        // var email1 = await UserPref.getUserEmail();
+        // var phone = await UserPref.getUserPhone();
+        // var image = await UserPref.getUserImg();
+        // var gender = await UserPref.getUserGender();
+        // var verified = await UserPref.getUserVerified();
+        // var version = await UserPref.getUserVersion();
 
         // if (response.doctor?.phone != null) {
         //   var doctor = response.doctor;
@@ -63,7 +83,7 @@ class ErrorState extends LoginState {
 
 class SuccessState extends LoginState {
   String message;
-  
+
   SuccessState(this.message);
 }
 
