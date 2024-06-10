@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:parkinson_app/data/api_manager.dart';
+import 'package:parkinson_app/model/api_manager.dart';
 import 'package:parkinson_app/pref/user_save_shared_prefrence.dart';
 
 class LoginViewModel extends Cubit<LoginState> {

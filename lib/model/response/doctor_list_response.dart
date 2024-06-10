@@ -1,4 +1,4 @@
-import 'package:parkinson_app/data/model/doctor.dart';
+import 'package:parkinson_app/model/model/doctor.dart';
 
 class DoctorResponse {
   final List<DoctorData> data;

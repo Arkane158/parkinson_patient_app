@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:parkinson_app/presentation/booked_appointment/booked_appoitnment_screen.dart';
 import 'package:parkinson_app/presentation/services/disease_information/disease_information.dart';
 import 'package:parkinson_app/presentation/services/disease_result/diseae_result.dart';
 import 'package:parkinson_app/presentation/services/services_widgets.dart';
@@ -54,7 +55,26 @@ class _ServicesScreenState extends State<ServicesScreen> {
                       ),
                     ),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: size.width * .02,
+                              vertical: size.height * .03),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              InkWell(
+                                onTap: () => Navigator.pushNamed(context,
+                                    BookedAppoitnmentScreen.screenName),
+                                child: const ServicesWidgets(
+                                    imagePath:
+                                        'assets/images/appointment_icon.png',
+                                    tittle: 'Appointments'),
+                              ),
+                            ],
+                          ),
+                        ),
                         Column(
                           children: [
                             Padding(
@@ -78,7 +98,7 @@ class _ServicesScreenState extends State<ServicesScreen> {
                             ),
                             Padding(
                               padding: EdgeInsets.symmetric(
-                                  horizontal: size.width * .03),
+                                  horizontal: size.width * .02),
                               child: const Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
@@ -92,11 +112,6 @@ class _ServicesScreenState extends State<ServicesScreen> {
                             ),
                           ],
                         ),
-                        const Column(
-                          children: [
-                            Text('chats')
-                          ],
-                        )
                       ],
                     )
                   ],

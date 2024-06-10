@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:parkinson_app/data/model/doctor.dart';
+import 'package:parkinson_app/model/model/doctor.dart';
 import 'package:parkinson_app/pref/user_save_shared_prefrence.dart';
 import 'package:parkinson_app/presentation/custom_widgets/custom_doctor_widget.dart';
 import 'package:parkinson_app/presentation/custom_widgets/search_text_from.dart';
@@ -21,15 +21,13 @@ class _HomeScreenState extends State<HomeScreen> {
   HomeViewModel viewModel = HomeViewModel();
   String? img;
   String? userName;
-  List<DoctorData> doctor = [];
 
   @override
   void initState() {
     super.initState();
     // Initial load
     loadUserImage().then((_) {
-      viewModel
-          .doctorList(); // Load the doctor list after loading the user image
+      viewModel.doctorList(); // Call doctorList() to load initial doctor list
     });
   }
 
@@ -291,42 +289,55 @@ class _HomeScreenState extends State<HomeScreen> {
                                       } else if (state is ErrorState) {
                                         return Center(
                                             child: Text(state.errorMessage));
-                                      } else if (state is DoctorSearchState) {
-                                        return SizedBox(
-                                          height: size.width * .7,
-                                          child: ListView.builder(
-                                            shrinkWrap: true,
-                                            padding: const EdgeInsets.all(15),
-                                            scrollDirection: Axis.horizontal,
-                                            itemCount: state.filteredDoctors
-                                                .length, // Use the length of filtered doctors
-                                            itemBuilder: (context, index) {
-                                              return Padding(
-                                                padding: EdgeInsets.symmetric(
-                                                    horizontal:
-                                                        size.width * .02),
-                                                child: InkWell(
-                                                  onTap: () {
-                                                    Navigator.pushNamed(
-                                                        context,
-                                                        ViewDoctorScreen
-                                                            .screenName,
-                                                        arguments: state
-                                                                .filteredDoctors[
-                                                            index]);
-                                                  },
-                                                  child: CustomDoctorWidget(
-                                                      doctor: state
-                                                              .filteredDoctors[
-                                                          index]), // Use filtered doctor list
-                                                ),
-                                              );
-                                            },
-                                          ),
-                                        );
                                       } else {
-                                        return const Center(
-                                            child: Text('No data available'));
+                                        List<DoctorData> displayedDoctors = [];
+                                        if (state is DoctorSearchState &&
+                                            state.filteredDoctors.isNotEmpty) {
+                                          displayedDoctors =
+                                              state.filteredDoctors;
+                                        } else {
+                                          displayedDoctors = viewModel.doctors
+                                              .take(10)
+                                              .toList();
+                                        }
+
+                                        if (displayedDoctors.isNotEmpty) {
+                                          return SizedBox(
+                                            height: size.width * .7,
+                                            child: ListView.builder(
+                                              shrinkWrap: true,
+                                              padding: const EdgeInsets.all(15),
+                                              scrollDirection: Axis.horizontal,
+                                              itemCount:
+                                                  displayedDoctors.length,
+                                              itemBuilder: (context, index) {
+                                                return Padding(
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal:
+                                                          size.width * .02),
+                                                  child: InkWell(
+                                                    onTap: () {
+                                                      Navigator.pushNamed(
+                                                          context,
+                                                          ViewDoctorScreen
+                                                              .screenName,
+                                                          arguments:
+                                                              displayedDoctors[
+                                                                  index]);
+                                                    },
+                                                    child: CustomDoctorWidget(
+                                                        doctor:
+                                                            displayedDoctors[
+                                                                index]),
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                          );
+                                        } else {
+                                          return const Center(
+                                              child: Text('No data available'));
+                                        }
                                       }
                                     },
                                   ),

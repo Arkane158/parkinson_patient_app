@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:parkinson_app/data/model/doctor.dart';
+import 'package:parkinson_app/model/model/doctor.dart';
 import 'package:parkinson_app/presentation/custom_widgets/custom_grid_view_widget.dart';
 import 'package:parkinson_app/presentation/home/home_view_model.dart';
 import 'package:parkinson_app/presentation/view_doctor/view_doctor_screen.dart';

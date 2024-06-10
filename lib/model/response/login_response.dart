@@ -1,4 +1,4 @@
-import 'package:parkinson_app/data/model/patient.dart';
+import 'package:parkinson_app/model/model/patient.dart';
 
 class LoginResponse {
   final String message;

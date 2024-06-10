@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:parkinson_app/data/model/doctor.dart';
+import 'package:parkinson_app/model/model/doctor.dart';
 
 class CustomDoctorWidget extends StatelessWidget {
   final DoctorData doctor;

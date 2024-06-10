@@ -84,19 +84,6 @@ class _ChangeAccountDataScreenState extends State<ChangeAccountDataScreen> {
                       icon: const Icon(Icons.edit),
                     ),
                     SizedBox(height: spacing),
-                    CustomTextFormField(
-                      title: 'Examination Time',
-                      controller: editController,
-                      hint: 'Time of 1 ex in minutes',
-                      icon: const Icon(Icons.timer),
-                      type: TextInputType.number,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter examination time';
-                        }
-                        return null;
-                      },
-                    ),
                     SizedBox(height: spacing),
                   ],
                 ),
@@ -124,7 +111,7 @@ class _ChangeAccountDataScreenState extends State<ChangeAccountDataScreen> {
                     child: CustomElevatedButton(
                       onPressed: () {
                         if (_formKey.currentState?.validate() ?? false) {
-                           if (title == 'phone') {
+                          if (title == 'phone') {
                             phone = editController.text;
                           } else if (title == 'name') {
                             name = editController.text;

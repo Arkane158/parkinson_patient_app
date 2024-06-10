@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:parkinson_app/data/model/doctor.dart';
+import 'package:parkinson_app/model/model/doctor.dart';
 import 'package:parkinson_app/presentation/custom_widgets/custom_elevated_buttom.dart';
+import 'package:parkinson_app/presentation/booking/booking_screen.dart';
 
 class ViewDoctorScreen extends StatefulWidget {
   const ViewDoctorScreen({Key? key}) : super(key: key);
@@ -116,24 +117,35 @@ class _ViewDoctorScreenState extends State<ViewDoctorScreen> {
                           TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
                     ),
                     SizedBox(height: size.height * .02),
-                    const Row(
+                    Row(
                       children: [
-                        Icon(Icons.timer, color: Color(0xff888888)),
-                        Text(
-                          'Sat - Tue 10:30AM - 6:00PM  ',
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
-                              color: Color(0xff888888)),
+                        const Icon(Icons.timer, color: Color(0xff888888)),
+                        Expanded(
+                          child: Wrap(
+                            children: [
+                              Text(
+                                'workDays ${doctor.workdays}\n hours: ${doctor.startTime} to ${doctor.endTime}',
+                                style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color(0xff888888)),
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
                     SizedBox(height: size.height * .02),
                     Padding(
                       padding:
-                          EdgeInsets.symmetric(horizontal: size.width * .06),
+                          EdgeInsets.symmetric(horizontal: size.width * .05),
                       child: CustomElevatedButton(
-                          onPressed: () {}, label: 'Continue Booking'),
+                          onPressed: () {
+                            Navigator.pushNamed(
+                                context, BookingScreen.screenName,
+                                arguments: doctor);
+                          },
+                          label: 'Continue Booking'),
                     ),
                     SizedBox(height: size.height * .02),
                   ],

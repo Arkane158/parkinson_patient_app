@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:parkinson_app/pref/user_save_shared_prefrence.dart';
+import 'package:parkinson_app/presentation/profile/account/edit/change_account_data_screen.dart';
+import 'package:parkinson_app/presentation/profile/account/edit/change_img_screen.dart';
 import 'package:parkinson_app/presentation/profile/account/edit_account_section.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
@@ -49,24 +51,16 @@ class _EditAccountState extends State<EditAccount> {
               child: Stack(
                 alignment: Alignment.center,
                 children: [
-                  CircleAvatar(
-                    radius: 80,
-                    backgroundImage: img != null
-                        ? CachedNetworkImageProvider(img!)
-                        : const AssetImage('assets/images/unkown.png')
-                            as ImageProvider,
-                  ),
-                  Positioned(
-                    top: 0,
-                    right: 0,
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.edit,
-                        color: Theme.of(context).primaryColor,
-                      ),
-                      onPressed: () {
-                        // Add your edit image functionality here
-                      },
+                  InkWell(
+                    onTap: () => Navigator.pushNamed(
+                        context, ChangePersonalPhoto.screenName,
+                        arguments: img),
+                    child: CircleAvatar(
+                      radius: 80,
+                      backgroundImage: img != null
+                          ? CachedNetworkImageProvider(img!)
+                          : const AssetImage('assets/images/unkown.png')
+                              as ImageProvider,
                     ),
                   ),
                 ],
@@ -84,20 +78,28 @@ class _EditAccountState extends State<EditAccount> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  EditAccountSection(
-                    tittle: 'User Name',
-                    icon: const Icon(Icons.person_outline),
-                    content: name ?? '',
+                  InkWell(
+                    onTap: () => Navigator.pushNamed(
+                        context, ChangeAccountDataScreen.screenName,arguments: 'name'),
+                    child: EditAccountSection(
+                      tittle: 'User Name',
+                      icon: const Icon(Icons.person_outline),
+                      content: name ?? '',
+                    ),
                   ),
                   EditAccountSection(
                     tittle: 'Email',
                     icon: const Icon(Icons.email_outlined),
                     content: email ?? '',
                   ),
-                  EditAccountSection(
-                    tittle: 'Phone ',
-                    icon: const Icon(Icons.phone_outlined),
-                    content: phone ?? '',
+                  InkWell(
+                    onTap: () => Navigator.pushNamed(
+                        context, ChangeAccountDataScreen.screenName,arguments: 'phone'),
+                    child: EditAccountSection(
+                      tittle: 'Phone ',
+                      icon: const Icon(Icons.phone_outlined),
+                      content: phone ?? '',
+                    ),
                   ),
                 ],
               ),

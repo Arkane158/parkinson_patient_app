@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:parkinson_app/firebase_options.dart';
+import 'package:parkinson_app/presentation/booked_appointment/booked_appoitnment_screen.dart';
 import 'package:parkinson_app/presentation/bottom_app_bar/app_bar_bottom_nav_bar.dart';
 import 'package:parkinson_app/presentation/change_password/change_password_screen.dart';
 import 'package:parkinson_app/presentation/doctors/doctors_screen.dart';
@@ -9,6 +10,8 @@ import 'package:parkinson_app/presentation/home/home_screen.dart';
 import 'package:parkinson_app/presentation/home/more_doctor_screen.dart';
 import 'package:parkinson_app/presentation/login/login_screen.dart';
 import 'package:parkinson_app/presentation/profile/about_us/about_us_screen.dart';
+import 'package:parkinson_app/presentation/profile/account/edit/change_account_data_screen.dart';
+import 'package:parkinson_app/presentation/profile/account/edit/change_img_screen.dart';
 import 'package:parkinson_app/presentation/profile/account/edit_account.dart';
 import 'package:parkinson_app/presentation/profile/help/help_screen.dart';
 import 'package:parkinson_app/presentation/profile/privacy%20policy/privacy_policy_screen.dart';
@@ -19,6 +22,7 @@ import 'package:parkinson_app/presentation/services/services_screen.dart';
 import 'package:parkinson_app/presentation/signup/signup_screen.dart';
 import 'package:parkinson_app/presentation/theme_data.dart';
 import 'package:parkinson_app/presentation/verify%20screen/verify_screen.dart';
+import 'package:parkinson_app/presentation/booking/booking_screen.dart';
 import 'package:parkinson_app/presentation/view_doctor/view_doctor_screen.dart';
 
 void main() async {
@@ -61,6 +65,13 @@ class MyApp extends StatelessWidget {
             const PrivacyPolicyScreen(),
         HelpScreen.screenName: (context) => const HelpScreen(),
         AboutUsScreen.screenName: (context) => const AboutUsScreen(),
+        ChangePersonalPhoto.screenName: (context) =>
+            const ChangePersonalPhoto(),
+        ChangeAccountDataScreen.screenName: (context) =>
+            const ChangeAccountDataScreen(),
+        BookingScreen.screenName: (context) => const BookingScreen(),
+        BookedAppoitnmentScreen.screenName: (context) =>
+            const BookedAppoitnmentScreen(),
       },
       initialRoute: LoginScreen.screenName,
     );

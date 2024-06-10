@@ -1,7 +1,7 @@
 // HomeViewModel
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:parkinson_app/data/api_manager.dart';
-import 'package:parkinson_app/data/model/doctor.dart';
+import 'package:parkinson_app/model/api_manager.dart';
+import 'package:parkinson_app/model/model/doctor.dart';
 
 class HomeViewModel extends Cubit<HomeState> {
   HomeViewModel() : super(LoadingState());
@@ -15,7 +15,8 @@ class HomeViewModel extends Cubit<HomeState> {
       var response = await ApiManager.doctorList();
       if (response.status == 200) {
         doctors = response.data;
-        filteredDoctors = List.from(doctors);
+        // Show only the first 10 doctors by default
+        filteredDoctors = doctors.take(10).toList();
         emit(HideLoadingState());
         emit(SuccessState("Doctor list loaded successfully"));
       } else {
@@ -30,8 +31,10 @@ class HomeViewModel extends Cubit<HomeState> {
 
   void searchDoctors(String query) {
     if (query.isEmpty) {
-      filteredDoctors = List.from(doctors);
+      // If the query is empty, show the initial list of doctors (up to the first 10 doctors)
+      filteredDoctors = doctors.take(10).toList();
     } else {
+      // If the query is not empty, filter the list of doctors by name or address
       filteredDoctors = doctors
           .where((doctor) =>
               doctor.name.toLowerCase().contains(query.toLowerCase()) ||
